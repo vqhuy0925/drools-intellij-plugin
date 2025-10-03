@@ -1,0 +1,57 @@
+{
+  parserClass="com.gravity.drools.parser.DroolsParser"
+  psiPackage="com.gravity.drools.psi"
+  elementTypeHolderClass="com.gravity.drools.psi.DroolsTypes"
+  elementTypeClass="com.intellij.psi.tree.IElementType"
+  tokenTypeClass="com.intellij.psi.tree.IElementType"
+}
+
+tokens=[
+  LINE_COMMENT
+  BLOCK_COMMENT
+  IDENTIFIER
+  INT_LITERAL
+  STRING_LITERAL
+
+  KW_PACKAGE='package'
+  KW_IMPORT='import'
+  KW_GLOBAL='global'
+  KW_FUNCTION='function'
+  KW_QUERY='query'
+  KW_RULE='rule'
+  KW_WHEN='when'
+  KW_THEN='then'
+  KW_END='end'
+  KW_SALIENCE='salience'
+  KW_NO_LOOP='no-loop'
+  KW_AGENDA_GROUP='agenda-group'
+  KW_DIALECT='dialect'
+
+  LPAREN='('  RPAREN=')'
+  LBRACE='{'  RBRACE='}'
+  LBRACK='['  RBRACK=']'
+  COMMA=','   SEMI=';'  COLON=':'
+  EQ='='      EQEQ='==' ARROW='->'
+  DOT='.'     STAR='*'
+  BAD_CHAR
+]
+
+droolsFile ::= (package_decl | import_decl | global_decl | rule_decl | extras)*
+
+package_decl ::= KW_PACKAGE qualified_name SEMI?
+import_decl  ::= KW_IMPORT qualified_name (DOT STAR)? SEMI?
+global_decl  ::= KW_GLOBAL qualified_name IDENTIFIER SEMI?
+
+rule_decl ::= KW_RULE STRING_LITERAL? rule_attrs? KW_WHEN block? KW_THEN block? KW_END
+
+rule_attrs ::= (KW_SALIENCE INT_LITERAL | KW_NO_LOOP | KW_AGENDA_GROUP STRING_LITERAL | KW_DIALECT STRING_LITERAL)*
+
+block ::= LBRACE? block_item* RBRACE?
+block_item ::= !(KW_THEN|KW_END|RBRACE) (IDENTIFIER | STRING_LITERAL | INT_LITERAL | EQ | EQEQ | ARROW | LPAREN | RPAREN | LBRACE | RBRACE | LBRACK | RBRACK | COMMA | SEMI | COLON | DOT | STAR)?
+
+qualified_name ::= IDENTIFIER (DOT IDENTIFIER)*
+
+extras ::= LINE_COMMENT
+         | BLOCK_COMMENT
+         | KW_FUNCTION     // keep for future 'function' support
+         | KW_QUERY        // keep for future 'query' support

@@ -1,6 +1,6 @@
 <idea-plugin>
   <id>com.gravity.drools</id>
-  <name>Drools Support (Starter)</name>
+  <name>Drools Support</name>
   <vendor email="dev@example.com">Gravity</vendor>
   <description>
     Minimal starter plugin for Drools language support on IntelliJ IDEA 252.* (IC).
@@ -10,12 +10,20 @@
   <!-- Keep it generic so it works on Community and Ultimate -->
   <depends>com.intellij.modules.platform</depends>
 
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- File type registration -->
-    <fileTypeFactory implementation="com.gravity.drools.DroolsFileTypeFactory"/>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+                name="Drools File"
+                language="Drools"
+                implementationClass="com.gravity.drools.DroolsFileType"
+                fieldName="INSTANCE"
+                extensions="drl"/>
 
-    <!-- Basic syntax highlighter. Replace with a real lexer later. -->
-    <lang.syntaxHighlighterFactory language="Drools"
-        implementationClass="com.gravity.drools.DroolsSyntaxHighlighterFactory"/>
-  </extensions>
+        <lang.parserDefinition language="Drools"
+                               implementationClass="com.gravity.drools.lang.DroolsParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory language="Drools"
+                                       implementationClass="com.gravity.drools.DroolsSyntaxHighlighterFactory"/>
+    </extensions>
+
+
 </idea-plugin>
