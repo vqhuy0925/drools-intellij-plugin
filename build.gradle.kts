@@ -23,14 +23,15 @@ java {
 }
 
 group = "com.gravity"
-version = "0.2.0"
+version = "0.2.1"
 
 dependencies {
     intellijPlatform {
         // Download IntelliJ 2025.2.3 (build line 252) automatically
-        intellijIdeaCommunity("2025.2.3")
+//        intellijIdeaCommunity("2025.2.3")
+        local(System.getenv("IDEA_HOME"))
         // If you need Java PSI APIs:
-        // bundledPlugin("com.intellij.java")
+        bundledPlugin("com.intellij.java")
     }
 }
 

@@ -9,6 +9,8 @@
 
   <!-- Keep it generic so it works on Community and Ultimate -->
   <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType
@@ -23,6 +25,13 @@
 
         <lang.syntaxHighlighterFactory language="Drools"
                                        implementationClass="com.gravity.drools.DroolsSyntaxHighlighterFactory"/>
+        <completion.contributor language="Drools"
+                                implementationClass="com.gravity.drools.completion.DroolsJavaMemberCompletion"/>
+
+
+        <!--        <completion.contributor language="Drools"-->
+<!--                                implementationClass="com.gravity.drools.completion.DroolsSmokeCompletion"/>-->
+
     </extensions>
 
 
