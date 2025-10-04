@@ -31,7 +31,9 @@
 
         <!--        <completion.contributor language="Drools"-->
 <!--                                implementationClass="com.gravity.drools.completion.DroolsSmokeCompletion"/>-->
-
+        <psi.referenceContributor
+                implementation="com.gravity.drools.navigation.DroolsReferenceContributor"/>
+        <gotoDeclarationHandler implementation="com.gravity.drools.navigation.DroolsGotoDeclarationHandler"/>
     </extensions>
 
 
